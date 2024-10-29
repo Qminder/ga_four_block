@@ -1,7 +1,7 @@
 include: "/views/sessions/*.view.lkml"
 view: future_input {
   derived_table: {
-    sql_trigger_value: ${testing_input.SQL_TABLE_NAME} ;;
+    datagroup_trigger: ga4_main_datagroup
     # partition_keys: ["session_date"]
     #cluster_keys: ["session_date"]
     sql:
