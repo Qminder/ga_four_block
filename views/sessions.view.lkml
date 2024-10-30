@@ -6,10 +6,10 @@ include: "/views/bqml/*/*.view"
 view: sessions {
   derived_table: {
     datagroup_trigger: ga4_main_datagroup
-    partition_keys: ["session_date"]
-    cluster_keys: ["session_date"]
-    increment_key: "session_date"
-    increment_offset: 3
+    # partition_keys: ["session_date"]
+    # cluster_keys: ["session_date"]
+    # increment_key: "session_date"
+    # increment_offset: 3
     sql:
 -- Final Select Statement:
 select se.session_date as session_date
