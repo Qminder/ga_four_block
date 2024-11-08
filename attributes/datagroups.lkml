@@ -4,5 +4,5 @@ datagroup: bqml_datagroup {
 }
 datagroup: attribution_channel{
   # re builds dummy tables for channel acquisition
-  sql_trigger: SELECT EXTRACT(month from CURRENT_DATE()) ;;
+  sql_trigger: SELECT CURRENT_DATE() ;;
 }

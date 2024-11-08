@@ -7,11 +7,9 @@ include: "/views/sessions/*.view.lkml"
 ############################
 view: session_event_packing {
   derived_table:{
-    sql_trigger_value: ${session_facts.SQL_TABLE_NAME} ;;
+    datagroup_trigger: ga4_main_datagroup
     partition_keys: ["session_date"]
     cluster_keys: ["sl_key","user_pseudo_id","session_date"]
-    increment_key: "session_date"
-    increment_offset: 0
     sql:SELECT sl.session_date session_date
           , sl.ga_session_id ga_session_id
           , sl.ga_session_number ga_session_number
@@ -49,7 +47,6 @@ FROM ${session_list_with_event_history.SQL_TABLE_NAME} AS sl
 WHERE sl.sl_key IN (SELECT sl_key FROM ${session_facts.SQL_TABLE_NAME}
   WHERE CASE WHEN "@{EVENT_COUNT}" = "" THEN 1=1 WHEN "@{EVENT_COUNT}" != "" THEN
     session_event_count< SAFE_CAST("@{EVENT_COUNT}" AS INT64) END) AND event_name IS NOT NULL
-AND {% incrementcondition %} session_date {% endincrementcondition %}
 GROUP BY 1,2,3,4,5;;
   }
   dimension: session_date{
